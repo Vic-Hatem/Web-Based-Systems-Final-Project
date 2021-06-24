@@ -1,0 +1,79 @@
+body{
+    background-color: #d1eedd ;
+    color: #003333;
+    background-image: url('1.jpeg');
+    
+    
+}
+#contactBtn{
+    border-radius: 10px;
+    background-color: #f1dfbc;
+    font-weight: bolder;
+    border-color: rgba(34, 121, 92, 0.664);
+}
+#con{
+    margin-top: 2%;
+    background-color: #f7f4efe8;
+    width: 50%;
+
+}
+
+.main-navbar{
+    background-color: #f1dfbc;
+    color: #003333;
+}
+
+
+#bar-logo{
+    color:rgba(34, 121, 92, 0.664);
+    text-shadow: #003333;
+}
+
+.btnContact{
+    background-color: #d1eedd;
+    color:  #e9a321;
+}
+#T1{
+    text-align: center;
+}
+#T2{
+    text-align: center;
+}
+input{
+    background-color: #d2e0d8;
+
+}
+
+#btn-add{
+    /* width: 10%; */
+    background-color: #f5efe3d8;
+    border-radius: 30px;
+    font-weight: bolder;
+
+}
+
+#contactBtn1{
+    border-radius: 30px;
+    background-color: #f5efe3bb;
+
+    font-weight: bolder;
+    
+}
+#reset{
+    font-size: 80%;
+    color: #a5803c;
+
+}
+#email1{
+    border-radius: 30px;
+    background-color: #f5efe3;
+    margin-left: 3%;
+}
+#pass1{
+    border-radius: 30px;
+    background-color: #f5efe3;
+}
+form{
+    margin: 0 auto;
+
+}
