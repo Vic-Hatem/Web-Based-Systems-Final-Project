@@ -3,6 +3,8 @@
     <div class="container">
         <div class="raw">
             <div class="col-12">
+            <a href="Logout.php">logout<a>
+
             <p>© All copyrights reserverd to A team (Hatem&Moran)</p>
             </div>
         </div>
