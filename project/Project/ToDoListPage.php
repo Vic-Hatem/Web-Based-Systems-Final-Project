@@ -1,6 +1,16 @@
 <?php require_once("parts/header.php");?>
+<?php session_start();?>
+<?php
+require_once("db.php");
 
-<!DOCTYPE html>
+$sql1="SELECT * FROM Assignments";
+$result1=mysqli_query($conn,$sql1);
+$tasks=array();
+while($row=mysqli_fetch_assoc($result1)){
+    $tasks[]=$row;
+}
+?>
+
 
 <head>
     <meta charset="UTF-8">
@@ -14,41 +24,18 @@
         integrity="sha384-trxYGD5BY4TyBTvU5H23FalSCYwpLA0vWEvXXGm5eytyztxb+97WzzY+IWDOSbav" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="ToDoListPage.js" ></script>
 
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark main-navbar ">
-        <div class="container">
-            <img src="Logo.png" alt="logo">
-            <a id="bar-logo" class="navbar-brand" href="#">Create Your Own Schedule</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <button id="contactBtn" type="button" class="btn btnContact" data-bs-toggle="modal"
-                            data-bs-target="#contactModal">Contact Us</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
-    <!-- 
-    <button id="addTask" type="button" class="btn btnContact" data-bs-toggle="modal" data-bs-target="#contactModal">Add
-        Task</button><br><br> -->
-
     <a type="button" id="addTask" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Task</a>
     <br><br>
     <div class="container">
         <table id="tbl" class="table table-Light table-striped table-hover">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Task</th>
                     <th>Username</th>
                     <th>Status</th>
@@ -74,22 +61,20 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" id="closeme_Add" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin-left:350px;"></button>
                 </div>
-                <form method="dialog" autocomplete="off" action="/action_page.php">
+                <form method="POST" id="addTaskForm" autocomplete="on" >
                     <div class="modal-body">
                         <label for="username1" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username1">
+                        <input type="text" class="form-control" id="username1" name="username1">
                         <div class="autocomplete" style="width:467px;">
                             <label for="task" class="form-label">Task</label>
-                            <input type="text" class="form-control" id="task">
+                            <input type="text" class="form-control" id="task" name="task">
                         </div>
                         <label for="dueDate" class="form-label">Due Date</label>
-                        <input type="text" class="form-control" id="dueDate">
+                        <input type="text" class="form-control" id="duedate" name="duedate">
                         <br>
-                        <button id="add_Task">Add</button>
-                        <!-- <button id="cancel">Cancel</button> -->
-
+                        <input type="submit"  name="addTask" id="addTask" onclick="document.getElementById('closeme_Add').click()" "value="Add"/>
                     </div>
                 </form>
             </div>
@@ -115,46 +100,34 @@
         </form>
     </div>
 
-
-
     <div class="modal" id="editModal">
-        <span onclick="document.getElementById('editModal').style.display='none'" class="close"
-            title="Close Modal">&times;</span>
+        
         <div class="modal-dialog">
-            <div class="modal-content" action="/action_page.php">
+            <div class="modal-content" >
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" id="closeme_Edit"class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin-left:350px;"></button>
                 </div>
-                <form method="dialog">
+                <form method="POST" id="editedDoneForm" action="/action_page.php">
                     <div class="modal-body">
-                        <label for="username1" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username11">
+                        <label for="username11" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username11" name="username11">
                         <div class="autocomplete" style="width:467px;">
-                            <label for="task" class="form-label">Task</label>
-                            <input type="text" class="form-control" id="task1">
+                            <label for="task1" class="form-label">Task</label>
+                            <input type="text" class="form-control" id="task1" name="task1">
                         </div>
-                        <label for="dueDate" class="form-label">Due Date</label>
-                        <input type="text" class="form-control" id="dueDate1">
+                        <label for="duedate1" class="form-label">Due Date</label>
+                        <input type="text" class="form-control" id="duedate1" name="duedate1">
                         <br>
-                        <button id="editedDone"
-                            onclick="document.getElementById('editModal').style.display='none'">Done</button>
+                        <input type="submit" name="editedDone" id="editedDone" onclick="document.getElementById('closeme_Edit').click()" value="Done">
 
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-
-
-
-
-    <script src="ToDoListPage.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
         crossorigin="anonymous"></script>
 </body>
-
-</html>
 <?php require_once("parts/footer.php");?>

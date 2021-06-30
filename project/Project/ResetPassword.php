@@ -51,24 +51,7 @@
 <body>
     
 
-    <nav class="navbar navbar-expand-lg navbar-dark main-navbar ">
-        <div class="container">
-            <img src="Logo.png" alt="logo">
-            <a id="bar-logo" class="navbar-brand" href="#">Create Your Own Schedule</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <button id="contactBtn" type="button" class="btn btnContact" data-bs-toggle="modal"
-                            data-bs-target="#contactModal">Contact Us</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    
 
     <div class="container">
         <div class="row" id="T6">
@@ -84,29 +67,10 @@
         <form method="POST">
             <label id="lblEmail">Email</label> <input type="email" id="eml" name="eml" required /><br><br>
             <label id="lblPassword" for="password">New Password</label> <input type="password" id="pass" name="pass" required /><br><br>
-
-        <!-- <input id="reset" type="submit" value="Reset"/> -->
-            
-                    <button id="btn-add" type="submit" class="btn btnContact"
+            <button id="btn-add" type="submit" class="btn btnContact"
                         data-bs-toggle="modal" data-bs-target="#contactModal">Reset</button><br><br>
         </form>
     </div>
-
-
-    <!-- <div ng-If=popUp() class="alert alert-success" role="alert">
-        <h4 class="alert-heading">Reset Password!</h4>
-        <p> Thank you , We have sent you a link to the mail you entered .
-        </p>
-        <hr>
-        <p class="mb-0">Please, Check Your Mail .</p>
-    </div>
- -->
-
-
-
-
-
-
 
     <script src="ResetPassword.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
