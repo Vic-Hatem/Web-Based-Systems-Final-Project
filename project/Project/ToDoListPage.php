@@ -1,14 +1,8 @@
-<?php require_once("parts/header.php");?>
-<?php session_start();?>
-<?php
+<?php 
+require_once("Parts/header.php");
+session_start();
 require_once("db.php");
 
-$sql1="SELECT * FROM Assignments";
-$result1=mysqli_query($conn,$sql1);
-$tasks=array();
-while($row=mysqli_fetch_assoc($result1)){
-    $tasks[]=$row;
-}
 ?>
 
 
@@ -19,12 +13,13 @@ while($row=mysqli_fetch_assoc($result1)){
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="ToDoListPage.css">
+    <link rel="stylesheet" href="Style/ToDoListPage.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.rtl.min.css"
         integrity="sha384-trxYGD5BY4TyBTvU5H23FalSCYwpLA0vWEvXXGm5eytyztxb+97WzzY+IWDOSbav" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="ToDoListPage.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="JS/ToDoListPage.js" ></script>
 
 </head>
 
@@ -54,7 +49,14 @@ while($row=mysqli_fetch_assoc($result1)){
     <div style="text-align: left; margin-left: 35%;">
         <button class="button" id="Edit" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
         <button class="button" id="Delete">Delete</button>
-        <button class="button" id="Forum">Forum</button>
+        <a href="Group.php">
+        <button class="button" id="Group" action="Group.php"  style="font-size: 25px;margin-bottom: 3%;background-color: #fae2b2bb;font-weight: bolder;">Group</button>
+        </a>
+        <button class="button" id="creatGroup" data-bs-toggle="modal" data-bs-target="#groupcreateModal">Create Group</button>
+        <br>
+        <br>
+        <button class="button" id="joinGroup" data-bs-toggle="modal" data-bs-target="#groupjoinModal">Join a Group</button>
+
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -74,7 +76,7 @@ while($row=mysqli_fetch_assoc($result1)){
                         <label for="dueDate" class="form-label">Due Date</label>
                         <input type="text" class="form-control" id="duedate" name="duedate">
                         <br>
-                        <input type="submit"  name="addTask" id="addTask" onclick="document.getElementById('closeme_Add').click()" "value="Add"/>
+                        <input type="submit"  name="addTask" id="addTask" onclick="document.getElementById('closeme_Add').click()" value="Add"/>
                     </div>
                 </form>
             </div>
@@ -119,6 +121,7 @@ while($row=mysqli_fetch_assoc($result1)){
                         <label for="duedate1" class="form-label">Due Date</label>
                         <input type="text" class="form-control" id="duedate1" name="duedate1">
                         <br>
+                        
                         <input type="submit" name="editedDone" id="editedDone" onclick="document.getElementById('closeme_Edit').click()" value="Done">
 
                     </div>
@@ -126,8 +129,53 @@ while($row=mysqli_fetch_assoc($result1)){
             </div>
         </div>
     </div>
+    <div class="modal" id="groupcreateModal">
+        
+        <div class="modal-dialog">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Choose a Group Name</h5>
+                    <button type="button" id="closeme_group"class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin-left:350px;"></button>
+                </div>
+                <form method="POST" id="groupcreateForm">
+                    <div class="modal-body">
+                            <label for="group_name" class="form-label">Group Name</label>
+                            <input type="text" class="form-control" id="group_name" name="group_name">
+
+                        <br>
+                        <br>                 
+                        <input type="submit" name="GroupNameDone" id="GroupNameDone" onclick="document.getElementById('closeme_group').click()" value="Done">
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="groupjoinModal">
+        
+        <div class="modal-dialog">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Type a Group Name</h5>
+                    <button type="button" id="closeme_groupj"class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin-left:350px;"></button>
+                </div>
+                <form method="POST" id="groupjoinForm">
+                    <div class="modal-body">
+                            <label for="group_name" class="form-label">Group Name</label>
+                            <input type="text" class="form-control" id="group_name" name="group_name">
+
+                        <br>
+                        <br>                 
+                        <input type="submit" name="GroupNameDonej" id="GroupNameDonej" onclick="document.getElementById('closeme_groupj').click()" value="Done">
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
         crossorigin="anonymous"></script>
 </body>
-<?php require_once("parts/footer.php");?>
+<?php require_once("Parts/footer.php");?>

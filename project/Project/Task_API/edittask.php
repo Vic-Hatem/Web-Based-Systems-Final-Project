@@ -1,5 +1,7 @@
 <?php
+session_start();
 require_once("../db.php");
+    $email=$_SESSION['email1'];
 
     $id=$_POST['id'];
     $task_update= $_POST['task1'];
@@ -7,7 +9,7 @@ require_once("../db.php");
     $status_update = mysqli_fetch_assoc($conn->query("SELECT * FROM Assignments WHERE id=$id"))['status'];
     $duedate_update = $_POST['duedate1'];
     $sql_update="UPDATE `Assignments`
-    SET `task`='$task_update',`username`='$username_update',`status`='$status_update',`duedate`='$duedate_update'
+    SET `task`='$task_update',`username`='$username_update',`status`='$status_update',`duedate`='$duedate_update',`email`='$email'
     WHERE id=$id";
     if($conn->query($sql_update)){
         echo json_encode(array('success'=>1,"id"=>$id));
@@ -15,4 +17,6 @@ require_once("../db.php");
     else{
         echo json_encode(array('success'=>0));
     }
+    $conn->close();
+
 ?>

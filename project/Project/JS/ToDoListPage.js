@@ -1,7 +1,7 @@
 $( document ).ready(function() {
         $.ajax({
             type:"GET",
-            url:'api/projector.php',
+            url:'Task_API/projector.php',
             success:function (response){
                 var res=response.split(",");
                 for(var i=0;i<res.length;i+=5){
@@ -17,22 +17,55 @@ $( document ).ready(function() {
                 }
             }
         });
+       
+        $("#groupjoinForm").submit(function(e){
+            e.preventDefault();
 
+            $.ajax({
+                type:"POST",
+                url:'Group_API/addtogroup.php',
+                data:$(this).serialize()+"&admin="+0,
+                async:true,
+                success: function (response){
+                    var jsonData = JSON.parse(response);
+                    if(jsonData.success=="1"){
+                        console.log("Added Succesfully");
+                    }
+                }
+            });
+        });
+        $("#groupcreateForm").submit(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type:"POST",
+                url:'Group_API/addtogroup.php',
+                data:$(this).serialize()+"&admin="+1,
+                async:true,
+                success: function (response){
+                    var jsonData = JSON.parse(response);
+                    if(jsonData.success=="1"){
+                        console.log("Added Succesfully");
+                    }
+                }
+            });
+        });
     
         $("#addTaskForm").submit(function(e){
             e.preventDefault();
-    
+
             $.ajax({
                 type:"POST",
-                url:'api/addtask.php',
+                url:'Task_API/addtask.php',
                 data:$(this).serialize(),
                 async:true,
+                
                 success: function (response){
                     var jsonData = JSON.parse(response);
                     if(jsonData.success=="1"){
                         $.ajax({
                             type:"GET",
-                            url:'api/projector.php',
+                            url:'Task_API/projector.php',
                             async: true,
                 
                             success:function (response){
@@ -81,7 +114,7 @@ $( document ).ready(function() {
             e.preventDefault();
             $.ajax({
                 type: "POST",
-                url: 'api/deletetask.php',
+                url: 'Task_API/deletetask.php',
                 data:{"id":id},
                 async:true,
                 success: function(response)
@@ -91,7 +124,7 @@ $( document ).ready(function() {
                     {   
                         $.ajax({
                             type:"GET",
-                            url:'api/projector.php',
+                            url:'Task_API/projector.php',
                             async: false,
             
                             success:function (response){
@@ -113,7 +146,6 @@ $( document ).ready(function() {
                     }  
                     $('.selected').removeClass('selected');
                 }
-                    
            });
            
         });
@@ -132,7 +164,7 @@ $( document ).ready(function() {
             e.preventDefault();
             $.ajax({
                 type:"POST",
-                url:'api/edittask.php',
+                url:'Task_API/edittask.php',
                 data:$(this).serialize()+"&id="+id,
                 async:true,
                 success:function (response){
@@ -140,7 +172,7 @@ $( document ).ready(function() {
                     if(jsonData.success=="1"){
                         $.ajax({
                             type:"GET",
-                            url:'api/projector.php',
+                            url:'Task_API/projector.php',
                             async:true,
                             success:function (response){
                                 var res=response.split(",");
@@ -163,8 +195,6 @@ $( document ).ready(function() {
                     
                 }
             });
-            
-
         });
     });
 
@@ -177,8 +207,6 @@ $( document ).ready(function() {
 
 
         $(document).on("click", ".checkbox", function (e) {
-             
-            
             let id=$('.selected').attr("data-id");
         //  כאן יתבצע פעולה לאלמנט שנוסף באופן דינמי אחרי שהמסמך כבר היהי מוכן
             e.preventDefault();
@@ -187,19 +215,16 @@ $( document ).ready(function() {
                 $(this).parents("tr").children().css("color", "green");
                 $.ajax({
                     type:"POST",
-                    url:'api/edit_status.php',
+                    url:'Task_API/edit_status.php',
                     data:{"id":id,"status":1},
                     async:true,
-
                     success:function (response){
-                    
                         var jsonData = JSON.parse(response);
                         if(jsonData.success=="1"){
                             $.ajax({
                                 type:"GET",
-                                url:'api/projector.php',
+                                url:'Task_API/projector.php',
                                 async:true,
-
                                 success:function (response){
                                     var res=response.split(",");
                                     document.getElementById('tbl1').innerHTML = '';
@@ -211,13 +236,10 @@ $( document ).ready(function() {
                                             var status=res[i+3];
                                             var duedate=res[i+4];
                                             projection(id,task,username,status,duedate);
-
                                         }
                                     }
                                 }
                             });
-                            
-                            
                         }
                         $('.selected').removeClass('selected');
                     }
@@ -228,18 +250,16 @@ $( document ).ready(function() {
                 $(this).parents("tr").children().css("color", "black");
                 $.ajax({
                     type:"POST",
-                    url:'api/edit_status.php',
+                    url:'Task_API/edit_status.php',
                     data:{"id":id,"status":0},
                     async:true,
                     success:function (response){
-                    
                         var jsonData = JSON.parse(response);
                         if(jsonData.success=="1"){
                             $.ajax({
                                 type:"GET",
-                                url:'api/projector.php',
+                                url:'Task_API/projector.php',
                                 async:true,
-
                                 success:function (response){
                                     var res=response.split(",");
                                     document.getElementById('tbl1').innerHTML = '';
@@ -258,12 +278,12 @@ $( document ).ready(function() {
                             
                         }
                         $('.selected').removeClass('selected');
-                        
                     }
                 });
             }
         });
     });
+    // 
     function projection(id,task,username,status,duedate){
         if(status==1){
             let tr1=`
@@ -288,4 +308,6 @@ $( document ).ready(function() {
             $("#tbl1").append(tr1);
         }
     }
+
+    
 });

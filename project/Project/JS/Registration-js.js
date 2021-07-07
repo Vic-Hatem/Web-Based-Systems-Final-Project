@@ -14,7 +14,6 @@ function addUser() {
     if (email == confirm1) {
 
         if (password == confirm2) {
-            users.push({ "Email": email, "Confirm Email": confirm1, "Password": password, "Confirm Password": confirm2, "Username": username });
         }
         else {
             alert("Make sure your passwords match")

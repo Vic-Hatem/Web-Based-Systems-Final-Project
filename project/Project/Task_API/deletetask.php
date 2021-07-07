@@ -1,5 +1,8 @@
 <?php 
+session_start();
 require_once('../db.php');
+
+
 $id=$_POST['id'];
 $sql = "DELETE FROM Assignments WHERE id=$id";
 if ($conn->query($sql)===TRUE) {
@@ -7,4 +10,6 @@ if ($conn->query($sql)===TRUE) {
 }else {
     echo json_encode(array('success' => 0));
 }
+$conn->close();
+
 ?>
