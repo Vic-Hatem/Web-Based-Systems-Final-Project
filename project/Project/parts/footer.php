@@ -3,7 +3,7 @@
     <div class="container">
         <div class="raw">
             <div class="col-12">
-            <a href="Logout.php">Logout<a>
+            <a href="Logout.php" style="color:green; font-weight:bold;">Logout<a>
 
             <p>© All copyrights reserverd to team A (Hatem&Moran Ltd.)</p>
             </div>

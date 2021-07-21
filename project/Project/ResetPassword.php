@@ -45,7 +45,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="Style/ResetPassword.css">
+    <link rel="stylesheet" href="ResetPassword.css">
 </head>
 
 <body>
@@ -68,7 +68,10 @@
             <label id="lblEmail">Email</label> <input type="email" id="eml" name="eml" required /><br><br>
             <label id="lblPassword" for="password">New Password</label> <input type="password" id="pass" name="pass" required /><br><br>
             <button id="btn-add" type="submit" class="btn btnContact"
-                        data-bs-toggle="modal" data-bs-target="#contactModal">Reset</button><br><br>
+                        data-bs-toggle="modal" data-bs-target="#contactModal" style="    background-color: #f5efe3d8;
+    border-radius: 30px;
+    font-weight: bolder;
+    border-color: antiquewhite;">Reset</button><br><br>
         </form>
     </div>
 

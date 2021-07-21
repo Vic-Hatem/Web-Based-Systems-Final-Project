@@ -14,4 +14,3 @@
         echo json_encode(array('success'=>0));
     }
     $conn->close();
-?>

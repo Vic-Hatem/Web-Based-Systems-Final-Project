@@ -1,10 +1,11 @@
 <?php
 
+
 session_start();
 require_once("../db.php");
-$group_name=$_POST['group_name'];
+$email=$_SESSION['email1'];
 
-$sql1="SELECT * FROM GroupTasks WHERE group_name='$group_name'";
+$sql1="SELECT * FROM Assignments WHERE email='$email' ORDER BY duedate";
 $result1=mysqli_query($conn,$sql1);
 
 while($row=mysqli_fetch_assoc($result1)){
@@ -20,9 +21,6 @@ while($row=mysqli_fetch_assoc($result1)){
     echo ",";
 
     echo $row['duedate']; 
-    echo ",";
-
-    echo $row['group_name']; 
     echo ",";
 }
 $conn->close();

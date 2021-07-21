@@ -41,8 +41,9 @@ body{
 #addTask{
 
     font-size: 30px;
-    align-items: center;
-    margin-left: 47%;
+    /* align-items: center; */
+    margin-left: 45%;
+   
     margin-top: 2%;
     background-color: #f5efe3bb;
     font-weight: bolder;
@@ -58,6 +59,7 @@ body{
 }
 #add_Task{
     background-color: #fae2b2bb;
+    color: black;
     border-color: rgba(0, 0, 0, 0.658);
     
 }
@@ -74,6 +76,8 @@ body{
     margin-bottom: 3%;
     background-color: #fae2b2bb;
     font-weight: bolder;
+    color:#024e4e
+
 }
 #group{
     /* background-color: #5c8686;
@@ -91,8 +95,13 @@ body{
     margin-bottom: 3%;
     background-color: #fae2b2bb;
     font-weight: bolder;
-}
+    color:#024e4e
 
+}
+#ttl-1{
+  color:#024e4e;
+  font-weight: 700;
+}
 
 
 * { box-sizing: border-box; }

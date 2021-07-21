@@ -11,14 +11,16 @@ require_once("db.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="ToDoListPage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="Style/ToDoListPage.css">
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.rtl.min.css"
         integrity="sha384-trxYGD5BY4TyBTvU5H23FalSCYwpLA0vWEvXXGm5eytyztxb+97WzzY+IWDOSbav" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
     <script src="JS/ToDoListPage.js" ></script>
 
 </head>
@@ -41,22 +43,36 @@ require_once("db.php");
 
             </tbody>
         </table>
+        <button  id="sortDate" name="sortDate">Sort By Date</button>
+        
+        <br>
+        <br>
+        <button id="sortTask" name="sortTask" class="">Sort By Task</button>
         <br>
     </div>
-    <h3 style="text-align: center;">Select The Row You Want First And Choose One Of Theese Functions :
-    </h3>
+    <div style="text-align: left; margin-left: 25%;" class="container">
+    <div class="col-6">
+    <h3 id="ttl-1">Select Row To </h3>
+    <br>
+    <button class="button" id="Edit" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+    <button class="button" id="Delete">Delete</button>
+    </div>
+    
 
-    <div style="text-align: left; margin-left: 35%;">
-        <button class="button" id="Edit" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-        <button class="button" id="Delete">Delete</button>
+    <div style="text-align: left; margin-left: 35%; margin-top:-19%;" class="col-6">
+    <h3 id="ttl-1">You Can Also </h3>
+<br>
         <a href="Group.php">
-        <button class="button" id="Group" action="Group.php"  style="font-size: 25px;margin-bottom: 3%;background-color: #fae2b2bb;font-weight: bolder;">Group</button>
+        <button class="button" id="Group" action="Group.php">View Groups Page</button>
         </a>
+        <br>
+        <br>
         <button class="button" id="creatGroup" data-bs-toggle="modal" data-bs-target="#groupcreateModal">Create Group</button>
         <br>
         <br>
         <button class="button" id="joinGroup" data-bs-toggle="modal" data-bs-target="#groupjoinModal">Join a Group</button>
 
+    </div>
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -65,20 +81,47 @@ require_once("db.php");
                     <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
                     <button type="button" id="closeme_Add" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin-left:350px;"></button>
                 </div>
-                <form method="POST" id="addTaskForm" autocomplete="on" >
-                    <div class="modal-body">
+                <div id="example">
+                    <form method="POST" id="addTaskForm" autocomplete="on" >
+                    <div class="modal-body" >
                         <label for="username1" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username1" name="username1">
+                        <input type="text" class="form-control" id="username1" name="username1" v-model="username">
                         <div class="autocomplete" style="width:467px;">
                             <label for="task" class="form-label">Task</label>
-                            <input type="text" class="form-control" id="task" name="task">
+                            <input type="text" class="form-control" id="task" name="task" v-model="task">
                         </div>
                         <label for="dueDate" class="form-label">Due Date</label>
-                        <input type="text" class="form-control" id="duedate" name="duedate">
+                        <input type="text" class="form-control" id="duedate" name="duedate" v-model="duedate">
                         <br>
-                        <input type="submit"  name="addTask" id="addTask" onclick="document.getElementById('closeme_Add').click()" value="Add"/>
+                        <input type="submit"  name="addTask" id="add_Task" onclick="document.getElementById('closeme_Add').click()" style="background-color: #fae2b2bb;
+    color: black;
+    border-radius: 10%;
+    border-color: rgba(0, 0, 0, 0.658);" value="Add"/>
                     </div>
                 </form>
+                <div class="table-responsive my-4">
+                    <h5 class="text" style="margin-left:2%; font-weight:bold;">Preview</h5>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-4">Task</th>
+                                <th class="col-4">Username</th>
+                                <th class="col-4">DueDate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="task_vue" class="text-wrap">{{task}}</td>
+                                <td id="username_vue" class="text-wrap">{{username}}</td>
+
+                                <td id="duedate_vue" class="text-wrap">{{duedate}}</td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                </div>
             </div>
         </div>
     </div>
@@ -122,7 +165,10 @@ require_once("db.php");
                         <input type="text" class="form-control" id="duedate1" name="duedate1">
                         <br>
                         
-                        <input type="submit" name="editedDone" id="editedDone" onclick="document.getElementById('closeme_Edit').click()" value="Done">
+                        <input type="submit" name="editedDone" id="editedDone" onclick="document.getElementById('closeme_Edit').click()" style="background-color: #fae2b2bb;
+    color: black;
+    border-radius: 10%;
+    border-color: rgba(0, 0, 0, 0.658);" value="Done">
 
                     </div>
                 </form>
@@ -134,7 +180,7 @@ require_once("db.php");
         <div class="modal-dialog">
             <div class="modal-content" >
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Choose a Group Name</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create</h5>
                     <button type="button" id="closeme_group"class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin-left:350px;"></button>
                 </div>
                 <form method="POST" id="groupcreateForm">
@@ -144,7 +190,10 @@ require_once("db.php");
 
                         <br>
                         <br>                 
-                        <input type="submit" name="GroupNameDone" id="GroupNameDone" onclick="document.getElementById('closeme_group').click()" value="Done">
+                        <input type="submit" name="GroupNameDone" id="GroupNameDone" onclick="document.getElementById('closeme_group').click()" style="background-color: #fae2b2bb;
+    color: black;
+    border-radius: 10%;
+    border-color: rgba(0, 0, 0, 0.658);" value="Done">
                         
                     </div>
                 </form>
@@ -156,17 +205,21 @@ require_once("db.php");
         <div class="modal-dialog">
             <div class="modal-content" >
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Type a Group Name</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Join</h5>
                     <button type="button" id="closeme_groupj"class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin-left:350px;"></button>
                 </div>
-                <form method="POST" id="groupjoinForm">
+                <form method="POST"  autocomplete="off" id="groupjoinForm">
                     <div class="modal-body">
-                            <label for="group_name" class="form-label">Group Name</label>
-                            <input type="text" class="form-control" id="group_name" name="group_name">
-
+                        <div class="autocomplete">
+                            <label for="group_name1" class="form-label">Group Name</label>
+                            <input type="text" class="form-control" id="group_name1" name="group_name1">
+                        </div>
                         <br>
                         <br>                 
-                        <input type="submit" name="GroupNameDonej" id="GroupNameDonej" onclick="document.getElementById('closeme_groupj').click()" value="Done">
+                        <input type="submit" name="GroupNameDonej" id="GroupNameDonej" onclick="document.getElementById('closeme_groupj').click()" style="background-color: #fae2b2bb;
+    color: black;
+    border-radius: 10%;
+    border-color: rgba(0, 0, 0, 0.658);" value="Done">
                         
                     </div>
                 </form>
@@ -174,8 +227,19 @@ require_once("db.php");
         </div>
     </div>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-        crossorigin="anonymous"></script>
+    <script >
+    
+
+        new Vue({
+            el:"#example",
+            data() {
+                return {
+                    username: "",
+                    task: "",
+                    duedate: ""
+                }
+            }
+        })
+    </script>
 </body>
 <?php require_once("Parts/footer.php");?>

@@ -66,15 +66,29 @@ body{
 }
 #add_Task{
     background-color: #fae2b2bb;
+    color: black;
+    border-radius: 10%;
     border-color: rgba(0, 0, 0, 0.658);
     
 }
 #addTask{
 
-  font-size: 30px;
+  font-size: 20px;
   align-items: center;
-  margin-left: 47%;
+  margin-left: 20%;
   margin-top: 2%;
+  width: 20%;
+  background-color: #f5efe3bb;
+  font-weight: bolder;
+  border-color: black;
+}
+#addMyTasks{
+
+  font-size: 20px;
+  align-items: center;
+  margin-left: 20%;
+  margin-top: 2%;
+  width: 20%;
   background-color: #f5efe3bb;
   font-weight: bolder;
   border-color: black;
@@ -92,6 +106,7 @@ body{
     margin-bottom: 3%;
     background-color: #fae2b2bb;
     font-weight: bolder;
+    color:#024e4e
 }
 #group{
     /* background-color: #5c8686;
@@ -104,11 +119,27 @@ body{
     font-weight: bolder;
 
 }
+#ttl-1{
+  color:#024e4e;
+  font-weight: 700;
+  margin-left: 46%;
+}
 #Delete{
     font-size: 25px;
     margin-bottom: 3%;
     background-color: #fae2b2bb;
     font-weight: bolder;
+    color:#024e4e
+}
+#showGroup{
+
+  font-size: 20px;
+  align-items: center;
+  margin-right:40%;
+  margin-top: 2%;
+  background-color: #f5efe3bb;
+  font-weight: bolder;
+  border-color: black;
 }
 
 
